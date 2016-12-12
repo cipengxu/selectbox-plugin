@@ -1,0 +1,186 @@
+/*
+ * The MIT License (MIT)
+ * Copyright (c) 2016 Cipeng Xu
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+.sel-box-container {
+    display: block;
+    letter-spacing: -0.31em; /* Webkit: collapse white-space between units */
+    *letter-spacing: normal; /* reset IE < 8 */
+    *word-spacing: -0.43em; /* IE < 8: collapse white-space between units */
+    text-rendering: optimizespeed; /* Webkit: fixes text-rendering: optimizeLegibility */
+}
+
+/* Opera as of 12 on Windows needs word-spacing.
+   The ".opera-only" selector is used to prevent actual prefocus styling
+   and is not required in markup.
+*/
+.opera-only :-o-prefocus,
+.sel-box-container {
+    word-spacing: -0.43em;
+}
+
+.sel-box-container > .sel-box {
+    width: 400px;
+    height: 400px;
+    position: relative;
+    border: solid 1px #454545;
+    margin: 10px;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    -webkit-box-shadow: 0 0.5px 0.5px 0.5px rgba(0,0,0,0.12), 0 0.5px 0.5px 0.5px rgba(0,0,0,0.24);
+       -moz-box-shadow: 0 0.5px 0.5px 0.5px rgba(0,0,0,0.12), 0 0.5px 0.5px 0.5px rgba(0,0,0,0.24);
+            box-shadow: 0 0.5px 0.5px 0.5px rgba(0,0,0,0.12), 0 0.5px 0.5px 0.5px rgba(0,0,0,0.24);
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+    display: inline-block;
+    zoom: 1; *display: inline; /* IE <= 7: fake inline-block */
+    letter-spacing: normal;
+    word-spacing: normal;
+    vertical-align: top;
+    text-rendering: auto;
+}
+
+.sel-box-container > .sel-box.selected {
+    border: 2px solid #3875D7;
+}
+
+/* MUST KEEP '-ms-filter' BEFORE 'filter' when run 'IE 8+' as 'IE 7-' */
+.sel-box-container > .sel-box.disabled {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE 8 */
+    filter: alpha(opacity=50); /* IE 5-7 */
+    -moz-opacity: 0.5; /* Firefox 0.9- */
+    -khtml-opacity: 0.5; /* Safari 1.x */
+    opacity: 0.5; /* Good browsers */
+    zoom: 1; /* To make element 'hasLayout' true for IE 7- since IE will not apply several styles, such as filter opacity, to elements without having layout */
+}
+
+/* combining positioned(non-static) parent(.sel-box.disabled) with filter: inherit children to avoid IE opacity non-inheritance issue */
+.sel-box-container > .sel-box.disabled > * {
+    filter: inherit;
+}
+
+body:last-child .sel-box-container:not(.checkable) > .sel-box:hover { /* for others */
+    cursor: default;
+}
+.sel-box-container > .sel-box:hover { /* for IE <= 8 */
+    cursor/*\**/: default\9;
+}
+
+.sel-box-container > .sel-box.disabled:hover {
+    cursor: not-allowed;
+}
+
+.sel-box-container > .sel-box:not(.disabled):hover {
+    cursor: pointer;
+}
+
+/*.sel-box-container > .sel-box.masked {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}*/
+
+/* text-align + vertical-align trick of centering element on IE <= 7 */
+*+html .sel-box-center-container,
+*+html .sel-box-container > .sel-box {
+    text-align: center;
+}
+*+html .sel-box-center-container > *,
+*+html .sel-box-container > .sel-box > * {
+    text-align: left;
+}
+*+html .sel-box-center-content,
+*+html .sel-box-container > .sel-box > .sel-box-avatar {
+    zoom: 1; *display: inline; /* IE <= 7: fake inline-block */
+    vertical-align: middle;
+}
+*+html .sel-box-center-ghost,
+*+html .sel-box-container > .sel-box > .sel-box-ghost {
+    zoom: 1; *display: inline; /* IE <= 7: fake inline-block */
+    vertical-align: middle;
+    width: 0;
+    height: 100%;
+}
+
+/* absolute + margin trick of centering element  on IE <= 7 */
+*+html .sel-box-container > .sel-box > .sel-box-check-sign.sel-box-check-sign-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -10px;
+    margin-left: -10px;
+    z-index: 1000;
+}
+
+/* relative + absolute trick of centering element on every browsers except IE <= 7 */
+html > /**/ body .sel-box-center-container,
+html > /**/ body .sel-box-container > .sel-box {
+    position: relative;
+}
+html > /**/ body .sel-box-center-content,
+html > /**/ body .sel-box-container > .sel-box > .sel-box-avatar,
+html > /**/ body .sel-box-container > .sel-box > .sel-box-check-sign.sel-box-check-sign-center {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.sel-box-container > .sel-box > .sel-box-avatar {
+    width: 100%;
+    display: block;
+    overflow: auto;
+}
+
+.sel-box-container > .sel-box > .sel-box-title {
+    font-size: 14px;
+    font-weight: normal;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.sel-box-container > .sel-box.selected > .sel-box-check-sign {
+    display: block;
+}
+
+body:last-child .sel-box-container > .sel-box:not(.selected) > .sel-box-check-sign { /* for others */
+    display: none;
+}
+.sel-box-container > .sel-box > .sel-box-check-sign { /* for IE <= 8 */
+    display/*\**/: none\9;
+}
+
+.sel-box-container > .sel-box > .sel-box-check-sign {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+
+.sel-box-container > .sel-box > .sel-box-check-sign.sel-box-check-sign-top {
+    top: 4.166666666666665%;
+}
+
+.sel-box-container > .sel-box > .sel-box-check-sign.sel-box-check-sign-bottom {
+    bottom: 4.166666666666665%;
+}
+
+.sel-box-container > .sel-box > .sel-box-check-sign.sel-box-check-sign-left {
+    left: 4.166666666666665%;
+}
+
+.sel-box-container > .sel-box > .sel-box-check-sign.sel-box-check-sign-right {
+    right: 4.166666666666665%;
+}

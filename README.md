@@ -6,7 +6,7 @@
 |:-----------------------|:------------------------------------------------------------------|
 | `width: 400`           | Set the width of select-box, default 400(px).                     |
 | `height: 400`          | Set the width of select-box, default 400(px).                     |
-| `prerendered: true`    | Set whether select-box is prerendered, true indicates DOM are <br/>previously rendered by backend, false indicates DOM are created by <br/>client(JS) according to `settings.data`.|
+| `prerendered: true`    | Set whether select-box is prerendered, true indicates DOM is <br/>previously rendered by backend, false indicates DOM is created by <br/>client(JS) according to `settings.data`.|
 | `checkable: true`      | Set whether select-box is checkable.                              |
 | `checkMultiple: true`  | If checkable is true, checkMultiple enables multiply check of <br/>select-box.|
 | `checkSignWidth: 20`   | Set the width of select-box check-sign icon, default 20(px).      |

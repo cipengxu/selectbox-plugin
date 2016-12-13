@@ -36,7 +36,7 @@
 | `getPluginInstance`: <br/>`function()`| Get plugin instance after instantiated.            |
 | `getOptions`: <br/>`function()`| Get current user options provided when plugin instantiated.|
 | `getSettings`: <br/>`function()`| Get current settings after plugin instantiated. The settings will <br/>be constructed by user options, DOM structure and default options.|
-| `getUIState`: <br/>`function()`| Get current UI state array. This will change when user interacting <br/>with select-box elements. The array will only contains UI-only <br/>data, which means extra properties in each object of `settings.data` <br/>will be omitted.|
-| `getState`: <br/>`function()`| Get current state array. This will change when user interacting <br/>with select-box elements. The array will contains current state <br/>data, which means extra properties in each object of `settings.data` <br/>will be retained.|
+| `getUIState`: <br/>`function()`| Get current UI state array. This will change when user interacting <br/>with select-box elements. The array will only contain UI-only <br/>data, which means extra properties in each object of `settings.data` <br/>will be omitted.|
+| `getState`: <br/>`function()`| Get current state array. This will change when user interacting <br/>with select-box elements. The array will contain current state <br/>data, which means extra properties in each object of `settings.data` <br/>will be retained.|
 
 
